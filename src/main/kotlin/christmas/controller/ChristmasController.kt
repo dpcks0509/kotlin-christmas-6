@@ -9,5 +9,6 @@ class ChristmasController {
 
     fun run() {
         outputView.printEventPlanner()
+        inputView.readVisitDate()
     }
 }
