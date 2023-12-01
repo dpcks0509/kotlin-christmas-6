@@ -1,5 +1,6 @@
 package christmas.controller
 
+import christmas.model.Benefit
 import christmas.view.InputView
 import christmas.view.OutputView
 
@@ -13,5 +14,7 @@ class ChristmasController {
         val orders = inputView.readOrders()
         outputView.printEventBenefits(visitDate)
         outputView.printOrders(orders)
+        val benefit = Benefit(orders)
+        outputView.printTotalOrderAmount(benefit.getTotalOrderAmount())
     }
 }

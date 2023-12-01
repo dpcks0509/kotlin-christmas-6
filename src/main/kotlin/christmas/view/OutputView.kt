@@ -1,6 +1,7 @@
 package christmas.view
 
 import christmas.model.Order
+import java.text.DecimalFormat
 
 class OutputView {
     fun printEventPlanner() {
@@ -17,5 +18,15 @@ class OutputView {
         orders.forEach { order ->
             println("${order.getFood()} ${order.getQuantity()}개")
         }
+    }
+
+    fun printTotalOrderAmount(totalOrderAmount: Int) {
+        println()
+        println("<할인 전 총주문 금액>")
+        println("${decimalFormat.format(totalOrderAmount)}원")
+    }
+
+    companion object {
+        private val decimalFormat = DecimalFormat("#,###")
     }
 }
