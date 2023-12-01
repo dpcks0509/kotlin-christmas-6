@@ -6,17 +6,18 @@ import christmas.util.Constants.GIVE_AWAY_MINIMUM_AMOUNT
 class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     private var totalOrderAmount = 0
     private var giveAway = "없음"
-
-    private val discount = Discount(visitDate, orders)
     private var dDayDiscount = 0
     private var weekDayDiscount = 0
+    private var weekendDayDiscount = 0
 
     init {
         calculateTotalOrderAmount()
         judgeGiveAway()
         if (totalOrderAmount >= DISCOUNT_MINIMUM_AMOUNT) {
+            val discount = Discount(visitDate, orders)
             dDayDiscount = discount.calculateDDayDiscount()
             weekDayDiscount = discount.calculateWeekDayDiscount()
+            weekendDayDiscount = discount.calculateWeekendDayDiscount()
         }
     }
 
