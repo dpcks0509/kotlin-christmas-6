@@ -1,14 +1,23 @@
 package christmas.model
 
+import christmas.util.Constants.DISCOUNT_MINIMUM_AMOUNT
 import christmas.util.Constants.GIVE_AWAY_MINIMUM_AMOUNT
 
-class Benefit(private val orders: List<Order>) {
+class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     private var totalOrderAmount = 0
     private var giveAway = "없음"
+
+    private val discount = Discount(visitDate, orders)
+    private var dDayDiscount = 0
+    private var weekDayDiscount = 0
 
     init {
         calculateTotalOrderAmount()
         judgeGiveAway()
+        if (totalOrderAmount >= DISCOUNT_MINIMUM_AMOUNT) {
+            dDayDiscount = discount.calculateDDayDiscount()
+            weekDayDiscount = discount.calculateWeekDayDiscount()
+        }
     }
 
     private fun calculateTotalOrderAmount() {

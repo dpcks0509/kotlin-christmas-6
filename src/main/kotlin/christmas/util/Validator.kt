@@ -2,6 +2,7 @@ package christmas.util
 
 import christmas.model.Menu
 import christmas.model.Order
+import christmas.util.Constants.BEVERAGE
 import christmas.util.Constants.DATE_END
 import christmas.util.Constants.DATE_START
 
@@ -55,7 +56,7 @@ object Validator {
                 menu.getFood() == order.getFood()
             }?.getCategory()
         }.distinct()
-        require(!(orderCategories.size == 1 && orderCategories.contains("음료"))) { Exception.INVALID_ORDER.getMessage() }
+        require(!(orderCategories.size == 1 && orderCategories.contains(BEVERAGE))) { Exception.INVALID_ORDER.getMessage() }
     }
 
     private fun validateOrdersTotalQuantity(orders: List<Order>) {
