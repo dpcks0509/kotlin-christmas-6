@@ -47,4 +47,10 @@ class Discount(private val visitDate: Int, private val orders: List<Order>) {
             category == MAIN
         }
     }
+
+    fun calculateSpecialDayDiscount(): Int {
+        if (calendar.isSpecialDay(visitDate))
+            return 1000
+        return 0
+    }
 }

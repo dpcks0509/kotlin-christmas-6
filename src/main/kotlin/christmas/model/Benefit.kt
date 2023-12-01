@@ -9,6 +9,7 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     private var dDayDiscount = 0
     private var weekDayDiscount = 0
     private var weekendDayDiscount = 0
+    private var specialDayDiscount = 0
 
     init {
         calculateTotalOrderAmount()
@@ -18,6 +19,7 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
             dDayDiscount = discount.calculateDDayDiscount()
             weekDayDiscount = discount.calculateWeekDayDiscount()
             weekendDayDiscount = discount.calculateWeekendDayDiscount()
+            specialDayDiscount = discount.calculateSpecialDayDiscount()
         }
     }
 
