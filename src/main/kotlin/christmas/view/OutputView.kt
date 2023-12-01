@@ -41,8 +41,10 @@ class OutputView {
         printWeekDayDiscount(benefit.getWeekDayDiscount())
         printWeekendDayDiscount(benefit.getWeekendDayDiscount())
         printSpecialDayDiscount(benefit.getSpecialDayDiscount())
-        printGiveAwayBenefit(benefit.getGiveAway())
+        printGiveAwayBenefit(benefit.getGiveAwayPrice())
         printNoBenefit(benefit)
+        printTotalBenefitAmount(benefit.getTotalBenefitAmount())
+        printPaymentAmount(benefit.getPaymentAmount())
     }
 
     private fun printDDayDiscount(dDayDiscount: Int) {
@@ -61,13 +63,25 @@ class OutputView {
         if (specialDayDiscount != 0) println("특별 할인: -${decimalFormat.format(specialDayDiscount)}원")
     }
 
-    private fun printGiveAwayBenefit(giveAway: String) {
-        if (giveAway != "") println("증정 이벤트: -25,000원")
+    private fun printGiveAwayBenefit(giveAwayPrice: Int) {
+        if (giveAwayPrice != 0) println("증정 이벤트: -${decimalFormat.format(giveAwayPrice)}원")
     }
 
     private fun printNoBenefit(benefit: Benefit) {
         if (benefit.getTotalDiscount() != 0 && benefit.getGiveAway() == NO_BENEFIT)
             println(NO_BENEFIT)
+    }
+
+    private fun printTotalBenefitAmount(totalBenefitAmount: Int) {
+        println()
+        println("<총혜택 금액>")
+        println("-${decimalFormat.format(totalBenefitAmount)}원")
+    }
+
+    private fun printPaymentAmount(paymentAmount: Int) {
+        println()
+        println("<할인 후 예상 결제 금액>")
+        println("${decimalFormat.format(paymentAmount)}원")
     }
 
     companion object {

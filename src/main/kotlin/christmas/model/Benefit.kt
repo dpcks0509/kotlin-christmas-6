@@ -12,6 +12,9 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     private var weekendDayDiscount = 0
     private var specialDayDiscount = 0
     private var totalDiscount = 0
+    private var giveAwayPrice = 0
+    private var totalBenefitAmount = 0
+    private var paymentAmount = 0
 
     init {
         calculateTotalOrderAmount()
@@ -23,7 +26,9 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
             weekendDayDiscount = discount.calculateWeekendDayDiscount()
             specialDayDiscount = discount.calculateSpecialDayDiscount()
             calculateTotalDiscount()
+            calculateTotalBenefitAmount()
         }
+        calculatePaymentAmount()
     }
 
     private fun calculateTotalOrderAmount() {
@@ -40,12 +45,22 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     }
 
     private fun judgeGiveAway() {
-        if (totalOrderAmount >= GIVE_AWAY_MINIMUM_AMOUNT)
+        if (totalOrderAmount >= GIVE_AWAY_MINIMUM_AMOUNT) {
             giveAway = "샴페인 1개"
+            giveAwayPrice = Menu.CHAMPAGNE.getPrice()
+        }
     }
 
     private fun calculateTotalDiscount() {
         totalDiscount = dDayDiscount + weekDayDiscount + weekendDayDiscount + specialDayDiscount
+    }
+
+    private fun calculateTotalBenefitAmount() {
+        totalBenefitAmount = dDayDiscount + weekDayDiscount + weekendDayDiscount + specialDayDiscount + giveAwayPrice
+    }
+
+    private fun calculatePaymentAmount() {
+        paymentAmount = totalOrderAmount - totalDiscount
     }
 
     fun getTotalOrderAmount() = totalOrderAmount
@@ -55,4 +70,7 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     fun getWeekendDayDiscount() = weekendDayDiscount
     fun getSpecialDayDiscount() = specialDayDiscount
     fun getTotalDiscount() = totalDiscount
+    fun getGiveAwayPrice() = giveAwayPrice
+    fun getTotalBenefitAmount() = totalBenefitAmount
+    fun getPaymentAmount() = paymentAmount
 }
