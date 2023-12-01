@@ -1,6 +1,8 @@
 package christmas.view
 
+import christmas.model.Benefit
 import christmas.model.Order
+import christmas.util.Constants.NO_BENEFIT
 import java.text.DecimalFormat
 
 class OutputView {
@@ -30,6 +32,42 @@ class OutputView {
         println()
         println("<증정 메뉴>")
         println(giveAway)
+    }
+
+    fun printBenefits(benefit: Benefit) {
+        println()
+        println("<혜택 내역>")
+        printDDayDiscount(benefit.getDDayDiscount())
+        printWeekDayDiscount(benefit.getWeekDayDiscount())
+        printWeekendDayDiscount(benefit.getWeekendDayDiscount())
+        printSpecialDayDiscount(benefit.getSpecialDayDiscount())
+        printGiveAwayBenefit(benefit.getGiveAway())
+        printNoBenefit(benefit)
+    }
+
+    private fun printDDayDiscount(dDayDiscount: Int) {
+        if (dDayDiscount != 0) println("크리스마스 디데이 할인: -${decimalFormat.format(dDayDiscount)}원")
+    }
+
+    private fun printWeekDayDiscount(weekDayDiscount: Int) {
+        if (weekDayDiscount != 0) println("평일 할인: -${decimalFormat.format(weekDayDiscount)}원")
+    }
+
+    private fun printWeekendDayDiscount(weekendDayDiscount: Int) {
+        if (weekendDayDiscount != 0) println("주말 할인: -${decimalFormat.format(weekendDayDiscount)}원")
+    }
+
+    private fun printSpecialDayDiscount(specialDayDiscount: Int) {
+        if (specialDayDiscount != 0) println("특별 할인: -${decimalFormat.format(specialDayDiscount)}원")
+    }
+
+    private fun printGiveAwayBenefit(giveAway: String) {
+        if (giveAway != "") println("증정 이벤트: -25,000원")
+    }
+
+    private fun printNoBenefit(benefit: Benefit) {
+        if (benefit.getTotalDiscount() != 0 && benefit.getGiveAway() == NO_BENEFIT)
+            println(NO_BENEFIT)
     }
 
     companion object {

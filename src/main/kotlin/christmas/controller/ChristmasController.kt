@@ -16,5 +16,6 @@ class ChristmasController(
         val benefit = Benefit(visitDate, orders)
         outputView.printTotalOrderAmount(benefit.getTotalOrderAmount())
         outputView.printGiveAway(benefit.getGiveAway())
+        outputView.printBenefits(benefit)
     }
 }

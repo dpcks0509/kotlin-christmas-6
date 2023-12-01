@@ -2,14 +2,16 @@ package christmas.model
 
 import christmas.util.Constants.DISCOUNT_MINIMUM_AMOUNT
 import christmas.util.Constants.GIVE_AWAY_MINIMUM_AMOUNT
+import christmas.util.Constants.NO_BENEFIT
 
 class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     private var totalOrderAmount = 0
-    private var giveAway = "없음"
+    private var giveAway = NO_BENEFIT
     private var dDayDiscount = 0
     private var weekDayDiscount = 0
     private var weekendDayDiscount = 0
     private var specialDayDiscount = 0
+    private var totalDiscount = 0
 
     init {
         calculateTotalOrderAmount()
@@ -20,6 +22,7 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
             weekDayDiscount = discount.calculateWeekDayDiscount()
             weekendDayDiscount = discount.calculateWeekendDayDiscount()
             specialDayDiscount = discount.calculateSpecialDayDiscount()
+            calculateTotalDiscount()
         }
     }
 
@@ -41,6 +44,15 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
             giveAway = "샴페인 1개"
     }
 
+    private fun calculateTotalDiscount() {
+        totalDiscount = dDayDiscount + weekDayDiscount + weekendDayDiscount + specialDayDiscount
+    }
+
     fun getTotalOrderAmount() = totalOrderAmount
     fun getGiveAway() = giveAway
+    fun getDDayDiscount() = dDayDiscount
+    fun getWeekDayDiscount() = weekDayDiscount
+    fun getWeekendDayDiscount() = weekendDayDiscount
+    fun getSpecialDayDiscount() = specialDayDiscount
+    fun getTotalDiscount() = totalDiscount
 }

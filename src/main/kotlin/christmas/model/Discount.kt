@@ -9,48 +9,54 @@ class Discount(private val visitDate: Int, private val orders: List<Order>) {
     private val calendar = Calendar()
 
     fun calculateDDayDiscount(): Int {
-        if (visitDate <= D_DAY_END)
-            return 900 + (100 * visitDate)
-        return 0
+        var dDayDiscount = 0
+        if (visitDate <= D_DAY_END) dDayDiscount = 900 + (100 * visitDate)
+        return dDayDiscount
     }
 
     fun calculateWeekDayDiscount(): Int {
+        var weekDayDiscount = 0
         if (calendar.isWeekDay(visitDate)) {
             var numberOfDessert = countNumberOfDessert()
-            return DISCOUNT_PER_MENU * numberOfDessert
+            weekDayDiscount = DISCOUNT_PER_MENU * numberOfDessert
         }
-        return 0
+        return weekDayDiscount
     }
 
     private fun countNumberOfDessert(): Int {
-        return orders.count { order ->
+        var numberOfDessert = 0
+        orders.forEach { order ->
             val category = Menu.entries.find { menu ->
                 menu.getFood() == order.getFood()
             }?.getCategory()
-            category == DESSERT
+            if (category == DESSERT) numberOfDessert += order.getQuantity()
         }
+        return numberOfDessert
     }
 
     fun calculateWeekendDayDiscount(): Int {
-        if (calendar.isWeekDay(visitDate)) {
+        var weekendDayDiscount = 0
+        if (calendar.isWeekendDay(visitDate)) {
             var numberOfMain = calculateNumberOfMain()
-            return DISCOUNT_PER_MENU * numberOfMain
+            weekendDayDiscount = DISCOUNT_PER_MENU * numberOfMain
         }
-        return 0
+        return weekendDayDiscount
     }
 
     private fun calculateNumberOfMain(): Int {
-        return orders.count { order ->
+        var numberOfMain = 0
+        orders.forEach { order ->
             val category = Menu.entries.find { menu ->
                 menu.getFood() == order.getFood()
             }?.getCategory()
-            category == MAIN
+            if (category == MAIN) numberOfMain += order.getQuantity()
         }
+        return numberOfMain
     }
 
     fun calculateSpecialDayDiscount(): Int {
-        if (calendar.isSpecialDay(visitDate))
-            return 1000
-        return 0
+        var specialDayDiscount = 0
+        if (calendar.isSpecialDay(visitDate)) specialDayDiscount = 1000
+        return specialDayDiscount
     }
 }
