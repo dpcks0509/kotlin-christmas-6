@@ -9,7 +9,8 @@ class ChristmasController {
 
     fun run() {
         outputView.printEventPlanner()
-        inputView.readVisitDate()
-        inputView.readOrders()
+        val visitDate = inputView.readVisitDate()
+        val orders = inputView.readOrders()
+        outputView.printEventBenefits(visitDate)
     }
 }
