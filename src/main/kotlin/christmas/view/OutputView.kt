@@ -26,6 +26,12 @@ class OutputView {
         println("${decimalFormat.format(totalOrderAmount)}원")
     }
 
+    fun printGiveAway(giveAway: String) {
+        println()
+        println("<증정 메뉴>")
+        println(giveAway)
+    }
+
     companion object {
         private val decimalFormat = DecimalFormat("#,###")
     }
