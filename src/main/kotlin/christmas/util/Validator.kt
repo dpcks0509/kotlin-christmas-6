@@ -2,12 +2,12 @@ package christmas.util
 
 import christmas.model.Menu
 import christmas.model.Order
-import christmas.util.Constants.VISIT_DATE_END
-import christmas.util.Constants.VISIT_DATE_START
+import christmas.util.Constants.DATE_END
+import christmas.util.Constants.DATE_START
 
 object Validator {
     fun validateVisitDate(visitDate: String): Int {
-        require(visitDate.toIntOrNull() in VISIT_DATE_START..VISIT_DATE_END) { Exception.INVALID_VISIT_DATE.getMessage() }
+        require(visitDate.toIntOrNull() in DATE_START..DATE_END) { Exception.INVALID_VISIT_DATE.getMessage() }
         return visitDate.toInt()
     }
 
