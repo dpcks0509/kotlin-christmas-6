@@ -45,6 +45,7 @@ class OutputView {
         printNoBenefit(benefit)
         printTotalBenefitAmount(benefit.getTotalBenefitAmount())
         printPaymentAmount(benefit.getPaymentAmount())
+        printBadge(benefit.getBadge())
     }
 
     private fun printDDayDiscount(dDayDiscount: Int) {
@@ -68,20 +69,26 @@ class OutputView {
     }
 
     private fun printNoBenefit(benefit: Benefit) {
-        if (benefit.getTotalDiscount() != 0 && benefit.getGiveAway() == NO_BENEFIT)
-            println(NO_BENEFIT)
+        if (benefit.getTotalDiscount() == 0 && benefit.getGiveAway() == NO_BENEFIT) println(NO_BENEFIT)
     }
 
     private fun printTotalBenefitAmount(totalBenefitAmount: Int) {
         println()
         println("<총혜택 금액>")
-        println("-${decimalFormat.format(totalBenefitAmount)}원")
+        if (totalBenefitAmount == 0) println("${decimalFormat.format(totalBenefitAmount)}원")
+        if (totalBenefitAmount != 0) println("-${decimalFormat.format(totalBenefitAmount)}원")
     }
 
     private fun printPaymentAmount(paymentAmount: Int) {
         println()
         println("<할인 후 예상 결제 금액>")
         println("${decimalFormat.format(paymentAmount)}원")
+    }
+
+    private fun printBadge(badge: String) {
+        println()
+        println("<12월 이벤트 배지>")
+        println(badge)
     }
 
     companion object {

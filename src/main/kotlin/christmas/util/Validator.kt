@@ -33,7 +33,7 @@ object Validator {
     }
 
     private fun validateOrderFood(food: String): String {
-        val menuFoods = Menu.entries.map { menu -> menu.getFood() }
+        val menuFoods = Menu.values().map { menu -> menu.getFood() }
         require(menuFoods.contains(food)) { Exception.INVALID_ORDER.getMessage() }
         return food
     }

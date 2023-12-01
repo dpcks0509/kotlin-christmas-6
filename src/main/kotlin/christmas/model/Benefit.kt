@@ -1,5 +1,6 @@
 package christmas.model
 
+import christmas.model.Badge.Companion.getBadgeType
 import christmas.util.Constants.DISCOUNT_MINIMUM_AMOUNT
 import christmas.util.Constants.GIVE_AWAY_MINIMUM_AMOUNT
 import christmas.util.Constants.NO_BENEFIT
@@ -15,6 +16,7 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     private var giveAwayPrice = 0
     private var totalBenefitAmount = 0
     private var paymentAmount = 0
+    private var badge = NO_BENEFIT
 
     init {
         calculateTotalOrderAmount()
@@ -29,6 +31,7 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
             calculateTotalBenefitAmount()
         }
         calculatePaymentAmount()
+        judgeBadgeType()
     }
 
     private fun calculateTotalOrderAmount() {
@@ -39,7 +42,7 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     }
 
     private fun calculateOrderAmount(food: String): Int {
-        return Menu.entries.find { menu ->
+        return Menu.values().find { menu ->
             menu.getFood() == food
         }?.getPrice()!!
     }
@@ -63,6 +66,10 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
         paymentAmount = totalOrderAmount - totalDiscount
     }
 
+    private fun judgeBadgeType() {
+        badge = getBadgeType(totalBenefitAmount)
+    }
+
     fun getTotalOrderAmount() = totalOrderAmount
     fun getGiveAway() = giveAway
     fun getDDayDiscount() = dDayDiscount
@@ -73,4 +80,5 @@ class Benefit(private val visitDate: Int, private val orders: List<Order>) {
     fun getGiveAwayPrice() = giveAwayPrice
     fun getTotalBenefitAmount() = totalBenefitAmount
     fun getPaymentAmount() = paymentAmount
+    fun getBadge() = badge
 }

@@ -26,7 +26,7 @@ class Discount(private val visitDate: Int, private val orders: List<Order>) {
     private fun countNumberOfDessert(): Int {
         var numberOfDessert = 0
         orders.forEach { order ->
-            val category = Menu.entries.find { menu ->
+            val category = Menu.values().find { menu ->
                 menu.getFood() == order.getFood()
             }?.getCategory()
             if (category == DESSERT) numberOfDessert += order.getQuantity()
@@ -46,7 +46,7 @@ class Discount(private val visitDate: Int, private val orders: List<Order>) {
     private fun calculateNumberOfMain(): Int {
         var numberOfMain = 0
         orders.forEach { order ->
-            val category = Menu.entries.find { menu ->
+            val category = Menu.values().find { menu ->
                 menu.getFood() == order.getFood()
             }?.getCategory()
             if (category == MAIN) numberOfMain += order.getQuantity()
