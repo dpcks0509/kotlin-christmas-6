@@ -1,6 +1,7 @@
 package christmas.util
 
 import christmas.model.Menu
+import christmas.model.Menu.Companion.getCategoryByFood
 import christmas.model.Order
 import christmas.util.Constants.BEVERAGE
 import christmas.util.Constants.DATE_END
@@ -52,9 +53,7 @@ object Validator {
 
     private fun validateOrdersCategory(orders: List<Order>) {
         val orderCategories = orders.map { order ->
-            Menu.values().find { menu ->
-                menu.getFood() == order.getFood()
-            }?.getCategory()
+            getCategoryByFood(order.getFood())
         }.distinct()
         require(!(orderCategories.size == 1 && orderCategories.contains(BEVERAGE))) { Exception.INVALID_ORDER.getMessage() }
     }

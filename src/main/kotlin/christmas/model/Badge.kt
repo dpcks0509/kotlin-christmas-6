@@ -6,7 +6,6 @@ enum class Badge(private val type: String, private val minimumBenefitAmount: Int
     STAR("별", 5000),
     NO("없음", 0);
 
-
     companion object {
         fun getBadgeType(benefitAmount: Int): String {
             return values().first() { badge ->

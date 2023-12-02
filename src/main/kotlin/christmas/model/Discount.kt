@@ -1,5 +1,6 @@
 package christmas.model
 
+import christmas.model.Menu.Companion.getCategoryByFood
 import christmas.util.Constants.DISCOUNT_PER_MENU
 import christmas.util.Constants.DESSERT
 import christmas.util.Constants.D_DAY_END
@@ -26,9 +27,7 @@ class Discount(private val visitDate: Int, private val orders: List<Order>) {
     private fun countNumberOfDessert(): Int {
         var numberOfDessert = 0
         orders.forEach { order ->
-            val category = Menu.values().find { menu ->
-                menu.getFood() == order.getFood()
-            }?.getCategory()
+            val category = getCategoryByFood(order.getFood())
             if (category == DESSERT) numberOfDessert += order.getQuantity()
         }
         return numberOfDessert
@@ -46,9 +45,7 @@ class Discount(private val visitDate: Int, private val orders: List<Order>) {
     private fun calculateNumberOfMain(): Int {
         var numberOfMain = 0
         orders.forEach { order ->
-            val category = Menu.values().find { menu ->
-                menu.getFood() == order.getFood()
-            }?.getCategory()
+            val category = getCategoryByFood(order.getFood())
             if (category == MAIN) numberOfMain += order.getQuantity()
         }
         return numberOfMain

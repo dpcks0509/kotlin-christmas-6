@@ -22,7 +22,14 @@ enum class Menu(private val category: String, private val food: String, private 
     RED_WINE(BEVERAGE, "레드와인", 60000),
     CHAMPAGNE(BEVERAGE, "샴페인", 25000);
 
-    fun getCategory() = category
+    companion object {
+        fun getCategoryByFood(food: String): String {
+            return values().find { menu ->
+                menu.getFood() == food
+            }?.category!!
+        }
+    }
+
     fun getFood() = food
     fun getPrice() = price
 }
