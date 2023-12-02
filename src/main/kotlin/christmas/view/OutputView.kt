@@ -1,10 +1,7 @@
 package christmas.view
 
-import christmas.model.Benefit
-import christmas.model.Discount
-import christmas.model.GiveAway
-import christmas.model.Order
-import christmas.util.Constants.NO_BENEFIT
+import christmas.model.*
+import christmas.util.Constants.NONE
 import java.text.DecimalFormat
 
 class OutputView {
@@ -12,7 +9,7 @@ class OutputView {
         println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.")
     }
 
-    fun printEventBenefits(visitDate: Int) {
+    fun printBenefitPreview(visitDate: Int) {
         println("12월 ${visitDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!")
     }
 
@@ -30,18 +27,18 @@ class OutputView {
         println("${decimalFormat.format(totalOrderAmount)}원")
     }
 
-    fun printGiveAway(giveAway: String) {
+    fun printGiveAwayMenu(giveAwayMenu: String) {
         println()
         println("<증정 메뉴>")
-        println(giveAway)
+        println(giveAwayMenu)
     }
 
-    fun printBenefits(discount: Discount, benefit: Benefit, giveAway: GiveAway) {
+    fun printBenefitDetails(benefit: Benefit) {
         println()
         println("<혜택 내역>")
-        printDiscounts(discount)
-        printGiveAwayPrice(giveAway.getGiveAwayPrice())
-        printNoBenefit(benefit, giveAway)
+        printDiscounts(benefit.getDiscount())
+        printGiveAwayPrice(benefit.getGiveAway().getPrice())
+        printNoBenefit(benefit.getCalculator().getTotalBenefitAmount())
     }
 
     private fun printDiscounts(discount: Discount) {
@@ -71,8 +68,8 @@ class OutputView {
         if (giveAwayPrice != 0) println("증정 이벤트: -${decimalFormat.format(giveAwayPrice)}원")
     }
 
-    private fun printNoBenefit(benefit: Benefit, giveAway: GiveAway) {
-        if (benefit.getTotalDiscount() == 0 && giveAway.getGiveAway() == NO_BENEFIT) println(NO_BENEFIT)
+    private fun printNoBenefit(totalBenefitAmount: Int) {
+        if (totalBenefitAmount == 0) println(NONE)
     }
 
     fun printTotalBenefitAmount(totalBenefitAmount: Int) {
@@ -88,10 +85,10 @@ class OutputView {
         println("${decimalFormat.format(paymentAmount)}원")
     }
 
-    fun printBadge(badge: String) {
+    fun printBadgeType(badgeType: String) {
         println()
         println("<12월 이벤트 배지>")
-        println(badge)
+        println(badgeType)
     }
 
     companion object {

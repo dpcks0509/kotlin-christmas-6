@@ -13,5 +13,5 @@ object Constants {
     const val MAIN = "메인"
     const val DESSERT = "디저트"
     const val BEVERAGE = "음료"
-    const val NO_BENEFIT = "없음"
+    const val NONE = "없음"
 }
