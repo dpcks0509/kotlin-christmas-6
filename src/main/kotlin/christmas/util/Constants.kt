@@ -7,6 +7,7 @@ object Constants {
     const val GIVE_AWAY_MINIMUM_AMOUNT = 120000
     const val DISCOUNT_MINIMUM_AMOUNT = 10000
     const val DISCOUNT_PER_MENU = 2023
+    const val NO_DISCOUNT = 0
 
     const val APPETIZER = "애피타이저"
     const val MAIN = "메인"

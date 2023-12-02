@@ -7,9 +7,9 @@ enum class Badge(private val type: String, private val minimumBenefitAmount: Int
     NO("없음", 0);
 
     companion object {
-        fun getBadgeType(benefitAmount: Int): String {
+        fun getBadgeTypeByTotalBenefitAmount(totalBenefitAmount: Int): String {
             return values().first() { badge ->
-                badge.minimumBenefitAmount <= benefitAmount
+                badge.minimumBenefitAmount <= totalBenefitAmount
             }.type
         }
     }

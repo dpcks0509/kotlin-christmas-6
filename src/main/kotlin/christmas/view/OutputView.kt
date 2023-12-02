@@ -1,6 +1,8 @@
 package christmas.view
 
 import christmas.model.Benefit
+import christmas.model.Discount
+import christmas.model.GiveAway
 import christmas.model.Order
 import christmas.util.Constants.NO_BENEFIT
 import java.text.DecimalFormat
@@ -34,18 +36,19 @@ class OutputView {
         println(giveAway)
     }
 
-    fun printBenefits(benefit: Benefit) {
+    fun printBenefits(discount: Discount, benefit: Benefit, giveAway: GiveAway) {
         println()
         println("<혜택 내역>")
-        printDDayDiscount(benefit.getDDayDiscount())
-        printWeekDayDiscount(benefit.getWeekDayDiscount())
-        printWeekendDayDiscount(benefit.getWeekendDayDiscount())
-        printSpecialDayDiscount(benefit.getSpecialDayDiscount())
-        printGiveAwayBenefit(benefit.getGiveAwayPrice())
-        printNoBenefit(benefit)
-        printTotalBenefitAmount(benefit.getTotalBenefitAmount())
-        printPaymentAmount(benefit.getPaymentAmount())
-        printBadge(benefit.getBadge())
+        printDiscounts(discount)
+        printGiveAwayPrice(giveAway.getGiveAwayPrice())
+        printNoBenefit(benefit, giveAway)
+    }
+
+    private fun printDiscounts(discount: Discount) {
+        printDDayDiscount(discount.getDDayDiscount())
+        printWeekDayDiscount(discount.getWeekDayDiscount())
+        printWeekendDayDiscount(discount.getWeekendDayDiscount())
+        printSpecialDayDiscount(discount.getSpecialDayDiscount())
     }
 
     private fun printDDayDiscount(dDayDiscount: Int) {
@@ -64,28 +67,28 @@ class OutputView {
         if (specialDayDiscount != 0) println("특별 할인: -${decimalFormat.format(specialDayDiscount)}원")
     }
 
-    private fun printGiveAwayBenefit(giveAwayPrice: Int) {
+    private fun printGiveAwayPrice(giveAwayPrice: Int) {
         if (giveAwayPrice != 0) println("증정 이벤트: -${decimalFormat.format(giveAwayPrice)}원")
     }
 
-    private fun printNoBenefit(benefit: Benefit) {
-        if (benefit.getTotalDiscount() == 0 && benefit.getGiveAway() == NO_BENEFIT) println(NO_BENEFIT)
+    private fun printNoBenefit(benefit: Benefit, giveAway: GiveAway) {
+        if (benefit.getTotalDiscount() == 0 && giveAway.getGiveAway() == NO_BENEFIT) println(NO_BENEFIT)
     }
 
-    private fun printTotalBenefitAmount(totalBenefitAmount: Int) {
+    fun printTotalBenefitAmount(totalBenefitAmount: Int) {
         println()
         println("<총혜택 금액>")
         if (totalBenefitAmount == 0) println("${decimalFormat.format(totalBenefitAmount)}원")
         if (totalBenefitAmount != 0) println("-${decimalFormat.format(totalBenefitAmount)}원")
     }
 
-    private fun printPaymentAmount(paymentAmount: Int) {
+    fun printPaymentAmount(paymentAmount: Int) {
         println()
         println("<할인 후 예상 결제 금액>")
         println("${decimalFormat.format(paymentAmount)}원")
     }
 
-    private fun printBadge(badge: String) {
+    fun printBadge(badge: String) {
         println()
         println("<12월 이벤트 배지>")
         println(badge)
