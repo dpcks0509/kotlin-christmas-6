@@ -47,7 +47,7 @@ object Validator {
     }
 
     private fun validateOrdersDuplicate(orders: List<Order>) {
-        val orderFoods = orders.map { order -> order.getFood() }
+        val orderFoods = orders.map { order -> order.getFood() }.toSet()
         require(orders.size == orderFoods.size) { Exception.INVALID_ORDER.getMessage() }
     }
 
