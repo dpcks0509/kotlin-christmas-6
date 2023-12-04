@@ -1,5 +1,6 @@
 package christmas
 
+import christmas.model.Badge.Companion.getBadgeByTotalBenefitAmount
 import christmas.model.Calculator
 import christmas.model.Discount
 import christmas.model.GiveAway
@@ -79,7 +80,7 @@ class ChristmasTest {
     }
 
     @ParameterizedTest
-    @CsvSource("120000:샴페인 1개", "119999:없음", "142000:샴페인 1개", "8500:없음" , delimiter = ':')
+    @CsvSource("120000:샴페인 1개", "119999:없음", "142000:샴페인 1개", "8500:없음", delimiter = ':')
     fun `증정 메뉴 증정`(totalOrderAmount: Int, expectGiveAwayMenu: String) {
         val giveAway = GiveAway(totalOrderAmount)
 
@@ -89,7 +90,12 @@ class ChristmasTest {
     }
 
     @ParameterizedTest
-    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:1200" , "25:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:3400", delimiter = ':')
+    @CsvSource(
+        "26:타파스-1,제로콜라-1:0",
+        "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:1200",
+        "25:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:3400",
+        delimiter = ':'
+    )
     fun `크리스마스 디데이 할인`(visitDate: Int, ordersString: String, expectDDayDiscount: Int) {
         val orders = validateOrders(ordersString)
 
@@ -99,7 +105,12 @@ class ChristmasTest {
     }
 
     @ParameterizedTest
-    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:4046" , "25:티본스테이크-1,바비큐립-1,초코케이크-1,제로콜라-1:2023", delimiter = ':')
+    @CsvSource(
+        "26:타파스-1,제로콜라-1:0",
+        "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:4046",
+        "25:티본스테이크-1,바비큐립-1,초코케이크-1,제로콜라-1:2023",
+        delimiter = ':'
+    )
     fun `평일 할인 (일요일~목요일)`(visitDate: Int, ordersString: String, expectWeekDayDiscount: Int) {
         val orders = validateOrders(ordersString)
 
@@ -109,7 +120,12 @@ class ChristmasTest {
     }
 
     @ParameterizedTest
-    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:0" , "22:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:4046", delimiter = ':')
+    @CsvSource(
+        "26:타파스-1,제로콜라-1:0",
+        "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:0",
+        "22:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:4046",
+        delimiter = ':'
+    )
     fun `주말 할인 (금요일, 토요일)`(visitDate: Int, ordersString: String, expectWeekendDayDiscount: Int) {
         val orders = validateOrders(ordersString)
 
@@ -119,7 +135,12 @@ class ChristmasTest {
     }
 
     @ParameterizedTest
-    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:1000" , "25:티본스테이크-1,바비큐립-1,초코케이크-1,제로콜라-1:1000", delimiter = ':')
+    @CsvSource(
+        "26:타파스-1,제로콜라-1:0",
+        "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:1000",
+        "25:티본스테이크-1,바비큐립-1,초코케이크-1,제로콜라-1:1000",
+        delimiter = ':'
+    )
     fun `특별 할인`(visitDate: Int, ordersString: String, expectSpecialDayDiscount: Int) {
         val orders = validateOrders(ordersString)
 
@@ -146,5 +167,15 @@ class ChristmasTest {
         val actualPaymentAmount = Calculator(visitDate, orders).getPaymentAmount()
 
         assertThat(actualPaymentAmount).isEqualTo(expectPaymentAmount)
+    }
+
+    @ParameterizedTest
+    @CsvSource("20000:산타", "10000:트리", "5000:별", "3000:없음", delimiter = ':')
+    fun `12월 이벤트 배지 부여`(totalBenefitAmount: Int, expectBadgeType: String) {
+        val badge = getBadgeByTotalBenefitAmount(totalBenefitAmount)
+
+        val actualBadgeType = badge.getType()
+
+        assertThat(actualBadgeType).isEqualTo(expectBadgeType)
     }
 }
