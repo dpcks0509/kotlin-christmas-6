@@ -11,22 +11,17 @@ class Discount(private val visitDate: Int, private val orders: List<Order>) {
     private val calendar = Calendar(visitDate)
 
     private fun countNumberOfDessert(): Int {
-        var numberOfDessert = 0
-        orders.forEach { order ->
+        return orders.sumOf { order ->
             val category = getMenuCategoryByFood(order.getFood())
-            if (category == DESSERT) numberOfDessert += order.getQuantity()
+            order.getQuantity().takeIf { category == DESSERT } ?: 0
         }
-        return numberOfDessert
     }
 
     private fun countNumberOfMain(): Int {
-        var numberOfMain = 0
-        orders.sumOf { it.getQuantity() }
-        orders.forEach { order ->
+        return orders.sumOf { order ->
             val category = getMenuCategoryByFood(order.getFood())
-            if (category == MAIN) numberOfMain += order.getQuantity()
+            order.getQuantity().takeIf { category == MAIN } ?: 0
         }
-        return numberOfMain
     }
 
     fun getDDayDiscount() = (900 + (100 * visitDate)).takeIf { visitDate <= D_DAY_END } ?: NO_DISCOUNT
