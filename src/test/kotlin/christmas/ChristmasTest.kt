@@ -117,4 +117,14 @@ class ChristmasTest {
 
         assertThat(actualWeekendDayDiscount).isEqualTo(expectWeekendDayDiscount)
     }
+
+    @ParameterizedTest
+    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:1000" , "25:티본스테이크-1,바비큐립-1,초코케이크-1,제로콜라-1:1000", delimiter = ':')
+    fun `특별 할인`(visitDate: Int, ordersString: String, expectSpecialDayDiscount: Int) {
+        val orders = validateOrders(ordersString)
+
+        val actualSpecialDayDiscount = Discount(visitDate, orders).getSpecialDayDiscount()
+
+        assertThat(actualSpecialDayDiscount).isEqualTo(expectSpecialDayDiscount)
+    }
 }
