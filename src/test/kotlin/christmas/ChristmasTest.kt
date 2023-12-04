@@ -127,4 +127,14 @@ class ChristmasTest {
 
         assertThat(actualSpecialDayDiscount).isEqualTo(expectSpecialDayDiscount)
     }
+
+    @ParameterizedTest
+    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:31246", delimiter = ':')
+    fun `총혜택 금액 계산`(visitDate: Int, ordersString: String, expectTotalBenefitAmount: Int) {
+        val orders = validateOrders(ordersString)
+
+        val actualTotalBenefitAmount = Calculator(visitDate, orders).getTotalBenefitAmount()
+
+        assertThat(actualTotalBenefitAmount).isEqualTo(expectTotalBenefitAmount)
+    }
 }
