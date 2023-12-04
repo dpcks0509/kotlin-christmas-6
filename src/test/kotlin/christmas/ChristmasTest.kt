@@ -137,4 +137,14 @@ class ChristmasTest {
 
         assertThat(actualTotalBenefitAmount).isEqualTo(expectTotalBenefitAmount)
     }
+
+    @ParameterizedTest
+    @CsvSource("26:타파스-1,제로콜라-1:8500", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:135754", delimiter = ':')
+    fun `할인 후 예상 결제 금액 계산`(visitDate: Int, ordersString: String, expectPaymentAmount: Int) {
+        val orders = validateOrders(ordersString)
+
+        val actualPaymentAmount = Calculator(visitDate, orders).getPaymentAmount()
+
+        assertThat(actualPaymentAmount).isEqualTo(expectPaymentAmount)
+    }
 }
