@@ -1,8 +1,8 @@
 package christmas
 
 import christmas.model.Calculator
+import christmas.model.Discount
 import christmas.model.GiveAway
-import christmas.model.Order
 import christmas.util.Validator.validateOrders
 import christmas.util.Validator.validateVisitDate
 import org.assertj.core.api.Assertions.assertThat
@@ -71,7 +71,7 @@ class ChristmasTest {
     @ParameterizedTest
     @CsvSource("26:타파스-1,제로콜라-1:8500", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:142000", delimiter = ':')
     fun `할인 전 총주문 금액 계산`(visitDate: Int, ordersString: String, expectTotalOrderAmount: Int) {
-        val orders = splitOrders(ordersString)
+        val orders = validateOrders(ordersString)
 
         val actualTotalOrderAmount = Calculator(visitDate, orders).getTotalOrderAmount()
 
@@ -88,10 +88,13 @@ class ChristmasTest {
         assertThat(actualGiveAwayMenu).isEqualTo(expectGiveAwayMenu)
     }
 
-    private fun splitOrders(ordersString: String): List<Order> {
-        return ordersString.split(",").map { orderString ->
-            val order = orderString.split("-")
-            Order(order[0], order[1].toInt())
-        }
+    @ParameterizedTest
+    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:1200" , "25:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:3400", delimiter = ':')
+    fun `크리스마스 디데이 할인`(visitDate: Int, ordersString: String, expectDDayDiscount: Int) {
+        val orders = validateOrders(ordersString)
+
+        val actualDDayDiscount = Discount(visitDate, orders).getDDayDiscount()
+
+        assertThat(actualDDayDiscount).isEqualTo(expectDDayDiscount)
     }
 }
