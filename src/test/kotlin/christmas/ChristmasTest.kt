@@ -1,6 +1,7 @@
 package christmas
 
 import christmas.model.Calculator
+import christmas.model.GiveAway
 import christmas.model.Order
 import christmas.util.Validator.validateOrders
 import christmas.util.Validator.validateVisitDate
@@ -70,13 +71,27 @@ class ChristmasTest {
     @ParameterizedTest
     @CsvSource("26:타파스-1,제로콜라-1:8500", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:142000", delimiter = ':')
     fun `할인 전 총주문 금액 계산`(visitDate: Int, ordersString: String, expectTotalOrderAmount: Int) {
-        val orders = ordersString.split(",").map { orderString ->
-            val order = orderString.split("-")
-            Order(order[0], order[1].toInt())
-        }
+        val orders = splitOrders(ordersString)
 
         val actualTotalOrderAmount = Calculator(visitDate, orders).getTotalOrderAmount()
 
         assertThat(actualTotalOrderAmount).isEqualTo(expectTotalOrderAmount)
+    }
+
+    @ParameterizedTest
+    @CsvSource("120000:샴페인 1개", "119999:없음", "142000:샴페인 1개", "8500:없음" , delimiter = ':')
+    fun `증정 메뉴 증정`(totalOrderAmount: Int, expectGiveAwayMenu: String) {
+        val giveAway = GiveAway(totalOrderAmount)
+
+        val actualGiveAwayMenu = giveAway.getMenu()
+
+        assertThat(actualGiveAwayMenu).isEqualTo(expectGiveAwayMenu)
+    }
+
+    private fun splitOrders(ordersString: String): List<Order> {
+        return ordersString.split(",").map { orderString ->
+            val order = orderString.split("-")
+            Order(order[0], order[1].toInt())
+        }
     }
 }
