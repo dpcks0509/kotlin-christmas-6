@@ -24,9 +24,9 @@ enum class Menu(private val category: String, private val food: String, private 
 
     companion object {
         fun getMenuCategoryByFood(food: String): String {
-            return values().find { menu ->
+            return values().first { menu ->
                 menu.getFood() == food
-            }?.category!!
+            }.category
         }
     }
 
