@@ -28,16 +28,16 @@ enum class Menu(
 
     companion object {
         fun getMenuCategoryByFood(food: String): String {
-            return values().first { menu ->
-                menu.food == food
-            }.category
+            return values().first { menu -> menu.food == food }.category
         }
 
         fun menuHasFood(food: String): Boolean {
             val menuFoods = values().map { menu -> menu.food }
             return menuFoods.contains(food)
         }
-    }
 
-    fun getPrice() = price
+        fun getMenuPriceByFood(food: String): Int {
+            return values().first { menu -> menu.food == food }.price
+        }
+    }
 }
