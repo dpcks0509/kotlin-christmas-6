@@ -9,5 +9,6 @@ class ChristmasController {
 
     fun run() {
         outputView.printWelcomeMessage()
+        val visitDay = inputView.readVisitDay()
     }
 }
