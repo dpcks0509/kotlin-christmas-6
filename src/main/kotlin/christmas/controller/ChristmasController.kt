@@ -8,6 +8,6 @@ class ChristmasController {
     private val outputView = OutputView()
 
     fun run() {
-
+        outputView.printWelcomeMessage()
     }
 }
