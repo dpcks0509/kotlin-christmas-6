@@ -1,10 +1,13 @@
 package christmas
 
+import christmas.model.Benefit
 import christmas.utils.Validator.validateOrders
 import christmas.utils.Validator.validateVisitDay
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
 class ChristmasTest {
@@ -60,5 +63,16 @@ class ChristmasTest {
     @ValueSource(strings = ["타파스-10,제로콜라-11", "티본스테이크-5,바비큐립-6,초코케이크-7,제로콜라-8"])
     fun `주문 메뉴와 개수 입력 예외 처리 (메뉴의 총개수가 20개를 초과한 경우)`(orders: String) {
         assertThrows<IllegalArgumentException> { validateOrders(orders) }
+    }
+
+    @ParameterizedTest
+    @CsvSource("26:타파스-1,제로콜라-1:8500", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:142000" ,delimiter = ':')
+    fun `할인 전 총주문 금액 계산`(visitDay: Int, inputOrders: String, expectTotalOrderAmount: Int) {
+        val orders = validateOrders(inputOrders)
+        val benefit = Benefit(visitDay, orders)
+
+        val actualTotalOrderAmount = benefit.getTotalOrderAmount()
+
+        assertThat(actualTotalOrderAmount).isEqualTo(expectTotalOrderAmount)
     }
 }
