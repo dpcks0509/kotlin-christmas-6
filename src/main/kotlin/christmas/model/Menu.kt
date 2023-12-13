@@ -40,4 +40,6 @@ enum class Menu(
             return values().first { menu -> menu.food == food }.price
         }
     }
+
+    fun getPrice() = price
 }

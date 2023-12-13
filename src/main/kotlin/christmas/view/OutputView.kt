@@ -4,6 +4,7 @@ import christmas.model.Benefit
 import christmas.model.Discount
 import christmas.model.GiveAway
 import christmas.model.Order
+import christmas.utils.Constants.NO_BEFIT
 import java.text.DecimalFormat
 
 class OutputView {
@@ -37,6 +38,8 @@ class OutputView {
         println()
         println("<혜택 내역>")
         printDiscount(benefit.getDiscount())
+        printGiveAwayPrice(benefit.getGiveAway().getPrice())
+        printNoBenefit(benefit.getTotalBenefitAmount())
     }
 
     private fun printDiscount(discount: Discount) {
@@ -44,6 +47,14 @@ class OutputView {
         if (discount.getWeekDayDiscount() != 0) println("평일 할인: -${decimalFormat.format(discount.getWeekDayDiscount())}원")
         if (discount.getWeekendDayDiscount() != 0) println("주말 할인: -${decimalFormat.format(discount.getWeekendDayDiscount())}원")
         if (discount.getSpecialDayDiscount() != 0) println("특별 할인: -${decimalFormat.format(discount.getSpecialDayDiscount())}원")
+    }
+
+    private fun printGiveAwayPrice(giveAwayPrice: Int) {
+        if (giveAwayPrice != 0) println("증정 이벤트: -${decimalFormat.format(giveAwayPrice)}원")
+    }
+
+    private fun printNoBenefit(totalBenefitAmount: Int) {
+        if (totalBenefitAmount == 0) println(NO_BEFIT)
     }
 
     companion object {
