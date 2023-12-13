@@ -18,7 +18,6 @@ class Discount(private val visitDay: Int, private val orders: List<Order>) {
     private val weekDayDiscount = calculateWeekDayDiscount()
     private val weekendDayDiscount = calculateWeekendDayDiscount()
     private val specialDayDiscount = calculateSpecialDayDiscount()
-
     private val totalDiscount = calculateTotalDiscount()
 
     private fun calculateDDayDiscount(): Int {

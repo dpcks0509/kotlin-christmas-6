@@ -6,13 +6,13 @@ enum class Badge(private val type: String, private val minBenefitAmount: Int) {
     STAR("별", 5000),
     NONE("없음", 0);
 
+    override fun toString(): String {
+        return type
+    }
+
     companion object {
         fun getBadgeByTotalBenefitAmount(totalBenefitAmount: Int): Badge {
             return values().first { badge -> badge.minBenefitAmount <= totalBenefitAmount }
         }
-    }
-
-    override fun toString(): String {
-        return type
     }
 }

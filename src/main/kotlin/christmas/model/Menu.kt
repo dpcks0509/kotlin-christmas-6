@@ -26,6 +26,8 @@ enum class Menu(
     RED_WINE(BEVERAGE, "레드와인", 60000),
     CHAMPAGNE(BEVERAGE, "샴페인", 25000);
 
+    fun getPrice() = price
+
     companion object {
         fun getMenuCategoryByFood(food: String): String {
             return values().first { menu -> menu.food == food }.category
@@ -40,6 +42,4 @@ enum class Menu(
             return values().first { menu -> menu.food == food }.price
         }
     }
-
-    fun getPrice() = price
 }
