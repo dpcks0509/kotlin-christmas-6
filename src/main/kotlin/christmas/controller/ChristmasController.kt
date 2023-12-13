@@ -1,5 +1,6 @@
 package christmas.controller
 
+import christmas.model.GiveAway
 import christmas.model.Menu.Companion.getMenuPriceByFood
 import christmas.model.Order
 import christmas.view.InputView
@@ -17,6 +18,7 @@ class ChristmasController {
         outputView.printOrders(orders)
         val totalOrderAmount = calculateTotalOrderAmount(orders)
         outputView.printTotalOrderAmount(totalOrderAmount)
+        outputView.printGiveAway(GiveAway(totalOrderAmount))
     }
 
     private fun calculateTotalOrderAmount(orders: List<Order>): Int {

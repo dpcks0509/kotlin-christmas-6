@@ -1,5 +1,6 @@
 package christmas.view
 
+import christmas.model.GiveAway
 import christmas.model.Order
 import java.text.DecimalFormat
 
@@ -9,7 +10,7 @@ class OutputView {
     }
 
     fun printVisitDay(visitDay: Int) {
-        println("12월 ${visitDay}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!")
+        println("12음월 ${visitDay}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!")
     }
 
     fun printOrders(orders: List<Order>) {
@@ -22,6 +23,12 @@ class OutputView {
         println()
         println("<할인 전 총주문 금액>")
         println("${decimalFormat.format(totalOrderAmount)}원")
+    }
+
+    fun printGiveAway(giveAway: GiveAway) {
+        println()
+        println("<증정 메뉴>")
+        println(giveAway)
     }
 
     companion object {
