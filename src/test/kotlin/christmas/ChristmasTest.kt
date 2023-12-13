@@ -1,6 +1,7 @@
 package christmas
 
 import christmas.model.Benefit
+import christmas.model.Discount
 import christmas.utils.Validator.validateOrders
 import christmas.utils.Validator.validateVisitDay
 import org.assertj.core.api.Assertions.assertThat
@@ -85,5 +86,16 @@ class ChristmasTest {
         val actualGiveAway = benefit.getGiveAway().toString()
 
         assertThat(actualGiveAway).isEqualTo(expectGiveAway)
+    }
+
+    @ParameterizedTest
+    @CsvSource("26:타파스-1,제로콜라-1:0", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:1200" ,delimiter = ':')
+    fun `크리스마스 디데이 할인 계산`(visitDay: Int, inputOrders: String, expectDDayDiscount: Int) {
+        val orders = validateOrders(inputOrders)
+        val discount = Discount(visitDay, orders)
+
+        val actualDDayDiscount = discount.getDDayDiscount()
+
+        assertThat(actualDDayDiscount).isEqualTo(expectDDayDiscount)
     }
 }
