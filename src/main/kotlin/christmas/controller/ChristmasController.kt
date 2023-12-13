@@ -12,5 +12,6 @@ class ChristmasController {
         val visitDay = inputView.readVisitDay()
         val orders = inputView.readOrders()
         outputView.printVisitDay(visitDay)
+        outputView.printOrders(orders)
     }
 }
