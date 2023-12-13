@@ -18,5 +18,6 @@ class ChristmasController {
         outputView.printTotalOrderAmount(benefit.getTotalOrderAmount())
         outputView.printGiveAway(benefit.getGiveAway())
         outputView.printBenefit(benefit)
+        outputView.printTotalBenefitAmount(benefit.getTotalBenefitAmount())
     }
 }

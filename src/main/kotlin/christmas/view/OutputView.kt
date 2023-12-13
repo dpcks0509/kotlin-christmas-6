@@ -57,6 +57,13 @@ class OutputView {
         if (totalBenefitAmount == 0) println(NO_BEFIT)
     }
 
+    fun printTotalBenefitAmount(totalBenefitAmount: Int) {
+        println()
+        println("<총혜택 금액>")
+        if (totalBenefitAmount == 0) println("${totalBenefitAmount}원")
+        if (totalBenefitAmount != 0) println("-${decimalFormat.format(totalBenefitAmount)}원")
+    }
+
     companion object {
         private val decimalFormat = DecimalFormat("#,###")
     }
