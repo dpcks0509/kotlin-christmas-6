@@ -64,6 +64,12 @@ class OutputView {
         if (totalBenefitAmount != 0) println("-${decimalFormat.format(totalBenefitAmount)}원")
     }
 
+    fun printPaymentAmount(paymentAmount: Int) {
+        println()
+        println("<할인 후 예상 결제 금액>")
+        println("${decimalFormat.format(paymentAmount)}원")
+    }
+
     companion object {
         private val decimalFormat = DecimalFormat("#,###")
     }

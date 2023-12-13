@@ -19,6 +19,8 @@ class Discount(private val visitDay: Int, private val orders: List<Order>) {
     private val weekendDayDiscount = calculateWeekendDayDiscount()
     private val specialDayDiscount = calculateSpecialDayDiscount()
 
+    private val totalDiscount = calculateTotalDiscount()
+
     private fun calculateDDayDiscount(): Int {
         return (D_DAY_DISCOUNT_BASE + (visitDay - 1) * D_DAY_DISCOUNT_UNIT).takeIf { visitDay in DAY_START..D_DAY_END }
             ?: NO_DISCOUNT
@@ -42,8 +44,13 @@ class Discount(private val visitDay: Int, private val orders: List<Order>) {
         return (SPECIAL_DISCOUNT).takeIf { calendar.isSpecialDay() } ?: NO_DISCOUNT
     }
 
+    private fun calculateTotalDiscount(): Int {
+        return dDayDiscount + weekDayDiscount + weekendDayDiscount + specialDayDiscount
+    }
+
     fun getDDayDiscount() = dDayDiscount
     fun getWeekDayDiscount() = weekDayDiscount
     fun getWeekendDayDiscount() = weekendDayDiscount
     fun getSpecialDayDiscount() = specialDayDiscount
+    fun getTotalDiscount() = totalDiscount
 }
