@@ -153,4 +153,15 @@ class ChristmasTest {
 
         assertThat(actualPaymentAmount).isEqualTo(expectPaymentAmount)
     }
+
+    @ParameterizedTest
+    @CsvSource("26:타파스-1,제로콜라-1:없음", "3:티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:산타" ,delimiter = ':')
+    fun `12월 이벤트 배지 부여 판단`(visitDay: Int, inputOrders: String, expectBadge: String) {
+        val orders = validateOrders(inputOrders)
+        val benefit = Benefit(visitDay, orders)
+
+        val actualBadge = benefit.getBadge().toString()
+
+        assertThat(actualBadge).isEqualTo(expectBadge)
+    }
 }
