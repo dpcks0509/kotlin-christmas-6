@@ -1,5 +1,7 @@
 package christmas.view
 
+import christmas.model.Benefit
+import christmas.model.Discount
 import christmas.model.GiveAway
 import christmas.model.Order
 import java.text.DecimalFormat
@@ -29,6 +31,16 @@ class OutputView {
         println()
         println("<증정 메뉴>")
         println(giveAway)
+    }
+
+    fun printBenefit(benefit: Benefit) {
+        println()
+        println("<혜택 내역>")
+        printDiscount(benefit.getDiscount())
+    }
+
+    private fun printDiscount(discount: Discount) {
+        if (discount.getDDayDiscount() != 0) println("크리스마스 디데이 할인: -${decimalFormat.format(discount.getDDayDiscount())}원")
     }
 
     companion object {
