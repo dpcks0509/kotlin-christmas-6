@@ -9,6 +9,7 @@ import christmas.utils.Constants.D_DAY_DISCOUNT_UNIT
 import christmas.utils.Constants.D_DAY_END
 import christmas.utils.Constants.MAIN
 import christmas.utils.Constants.NO_DISCOUNT
+import christmas.utils.Constants.SPECIAL_DISCOUNT
 
 class Discount(private val visitDay: Int, private val orders: List<Order>) {
     private val calendar = Calendar(visitDay)
@@ -16,6 +17,7 @@ class Discount(private val visitDay: Int, private val orders: List<Order>) {
     private val dDayDiscount = calculateDDayDiscount()
     private val weekDayDiscount = calculateWeekDayDiscount()
     private val weekendDayDiscount = calculateWeekendDayDiscount()
+    private val specialDayDiscount = calculateSpecialDayDiscount()
 
     private fun calculateDDayDiscount(): Int {
         return (D_DAY_DISCOUNT_BASE + (visitDay - 1) * D_DAY_DISCOUNT_UNIT).takeIf { visitDay in DAY_START..D_DAY_END }
@@ -36,7 +38,12 @@ class Discount(private val visitDay: Int, private val orders: List<Order>) {
         return (numberOfMain * DISCOUNT_PER_MENU).takeIf { calendar.isWeekendDay() } ?: NO_DISCOUNT
     }
 
+    private fun calculateSpecialDayDiscount(): Int {
+        return (SPECIAL_DISCOUNT).takeIf { calendar.isSpecialDay() } ?: NO_DISCOUNT
+    }
+
     fun getDDayDiscount() = dDayDiscount
     fun getWeekDayDiscount() = weekDayDiscount
     fun getWeekendDayDiscount() = weekendDayDiscount
+    fun getSpecialDayDiscount() = specialDayDiscount
 }

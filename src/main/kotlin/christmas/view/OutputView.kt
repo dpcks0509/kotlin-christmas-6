@@ -43,6 +43,7 @@ class OutputView {
         if (discount.getDDayDiscount() != 0) println("크리스마스 디데이 할인: -${decimalFormat.format(discount.getDDayDiscount())}원")
         if (discount.getWeekDayDiscount() != 0) println("평일 할인: -${decimalFormat.format(discount.getWeekDayDiscount())}원")
         if (discount.getWeekendDayDiscount() != 0) println("주말 할인: -${decimalFormat.format(discount.getWeekendDayDiscount())}원")
+        if (discount.getSpecialDayDiscount() != 0) println("특별 할인: -${decimalFormat.format(discount.getSpecialDayDiscount())}원")
     }
 
     companion object {
