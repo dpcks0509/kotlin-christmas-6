@@ -1,9 +1,6 @@
 package christmas.view
 
-import christmas.model.Benefit
-import christmas.model.Discount
-import christmas.model.GiveAway
-import christmas.model.Order
+import christmas.model.*
 import christmas.utils.Constants.NO_BEFIT
 import java.text.DecimalFormat
 
@@ -68,6 +65,12 @@ class OutputView {
         println()
         println("<할인 후 예상 결제 금액>")
         println("${decimalFormat.format(paymentAmount)}원")
+    }
+
+    fun printBadge(badge: Badge) {
+        println()
+        println("<12월 이벤트 배지>")
+        println(badge)
     }
 
     companion object {

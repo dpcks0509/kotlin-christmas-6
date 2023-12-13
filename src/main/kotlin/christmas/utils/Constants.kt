@@ -8,7 +8,7 @@ object Constants {
     const val D_DAY_DISCOUNT_UNIT = 100
     const val DISCOUNT_PER_MENU = 2023
     const val SPECIAL_DISCOUNT = 1000
-    const val DISCOUNT_MIN_AMOUNT = 10000
+    const val BENEFIT_MIN_AMOUNT = 10000
     const val GIVEAWAY_MIN_AMOUNT = 120000
     const val NO_DISCOUNT = 0
 
