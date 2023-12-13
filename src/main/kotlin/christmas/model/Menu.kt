@@ -34,8 +34,7 @@ enum class Menu(
         }
 
         fun menuHasFood(food: String): Boolean {
-            val menuFoods = values().map { menu -> menu.food }
-            return menuFoods.contains(food)
+            return values().any { menu -> menu.food == food }
         }
 
         fun getMenuPriceByFood(food: String): Int {
