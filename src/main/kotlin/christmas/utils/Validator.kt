@@ -46,13 +46,13 @@ object Validator {
     }
 
     private fun validateOrdersDuplicate(orders: List<Order>) {
-        val orderFoods = orders.map { order -> order.getFood() }
-        require(orders.size == orderFoods.toSet().size) { Exception.INVALID_ORDER.getMessage() }
+        val orderFoods = orders.map { order -> order.getFood() }.toSet()
+        require(orders.size == orderFoods.size) { Exception.INVALID_ORDER.getMessage() }
     }
 
     private fun validateOrdersOnlyBeverage(orders: List<Order>) {
         val categories = orders.map { order -> getMenuCategoryByFood(order.getFood()) }.toSet()
-        require(!(categories.size == 1 && categories.contains(BEVERAGE))) { Exception.INVALID_ORDER.getMessage() }
+        require(!categories.all { category -> category == BEVERAGE }) { Exception.INVALID_ORDER.getMessage() }
     }
 
     private fun validateOrdersTotalQuantity(orders: List<Order>) {
